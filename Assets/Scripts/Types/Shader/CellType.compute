@@ -1,0 +1,14 @@
+// Struct to hold data for single cell in cellular automata
+
+struct CellType
+{
+    int2 position;
+    float2 velocity;
+    float density;
+    float pressure;
+    float temperature;
+    bool processed;
+    int type;
+    int state;
+    int age;
+};
