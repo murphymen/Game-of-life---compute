@@ -6,25 +6,6 @@
 // with cs.SetTexture
 RWTexture2D<float4> Result;
 
-// Struct to hold data for single cell in cellular automata
-struct Cell
-{
-    float2 Position;
-    float2 Velocity;
-    float Density;
-    float Pressure;
-    float Temperature;
-
-    // Alredy processed flag
-    bool Processed;
-    // Cell type
-    int type;
-    // Cell state
-    int state;
-    // Cell age
-    int age;
-
-};
 
 // Dimension of the grid
 uint dimmX = 256;
