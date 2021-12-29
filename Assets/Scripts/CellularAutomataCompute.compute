@@ -72,12 +72,6 @@ void InitGrid(uint3 threadId : SV_DispatchThreadID)
 }
 
 
-// Kernel to simulate conway's game of life
-[numthreads(32, 32, 1)]
-
-
-
-
 [numthreads(8,8,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
