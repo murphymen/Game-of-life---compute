@@ -33,12 +33,31 @@ uint dimmY = 256;
 // Structured buffer to hold all the cells 
 RWStructuredBuffer<Cell> Cells;
 
-// Kernel to initialize the grid with random 0-1 values
+// Kernel to initialize the grid with perlin noise
+// and set the initial state of each cell
 [numthreads(32, 32, 1)]
 void InitGrid(uint3 threadId : SV_DispatchThreadID)
 {
     // Get the current cell
     Cell cell = Cells[threadId.x + threadId.y * dimmX];
+
+    // Set the cell position
+    cell.Position = float2(threadId.x, threadId.y);
+
+    // Set the cell velocity
+    cell.Velocity = float2(0.0f, 0.0f);
+
+    // Set the cell density
+    cell.Density = 0.0f;
+
+    // Set the cell pressure
+    cell.Pressure = 0.0f;
+
+    // Set the cell temperature
+    cell.Temperature = 0.0f;
+
+    // Set the cell already processed flag
+    cell.Processed = false;
 
     // Set the cell type
     cell.type = 0;
@@ -49,34 +68,12 @@ void InitGrid(uint3 threadId : SV_DispatchThreadID)
     // Set the cell age
     cell.age = 0;
 
-    // Set the cell processed flag
-    cell.Processed = false;
+    // get noise value
+    float noise = PerlinNoise(cell.Position.x, cell.Position.y);
 
-    // Set the cell position
-    cell.Position = float2(threadId.x, threadId.y);
-
-    // Set the cell velocity
-    cell.Velocity = float2(0, 0);
-
-    // Set the cell density
-    cell.Density = 0;
-
-    // Set the cell pressure
-    cell.Pressure = 0;
-
-    // Set the cell temperature
-    cell.Temperature = 0;
-
-    // Set the cell
+    // Set the current cell
     Cells[threadId.x + threadId.y * dimmX] = cell;
 }
-
-
-// Kernel to simulate conway's game of life
-[numthreads(32, 32, 1)]
-
-
-
 
 [numthreads(8,8,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)

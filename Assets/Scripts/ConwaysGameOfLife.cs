@@ -47,6 +47,8 @@ public class ConwaysGameOfLife : MonoBehaviour
         compute.SetFloat("Height", height);
     }
 	
+    // + 
+
 	// Update is called once per frame
 	void Update ()
 	{
